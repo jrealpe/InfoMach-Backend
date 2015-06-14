@@ -26,7 +26,7 @@ class Profile(models.Model):
 
 class Contribution(models.Model):
     user = models.ForeignKey(Profile)
-    title = models.CharField(max_length = 128)
+    title = models.CharField(max_length = 128, default = '')
     description = models.TextField(max_length=450)
     
     def __unicode__(self):

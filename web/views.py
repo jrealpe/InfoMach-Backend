@@ -13,7 +13,15 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadReque
 
 # Create your views here.
 
+def parse_deudor(raw):
+    from bs4 import BeautifulSoup as bs
 
+    for tr in bs(raw).find_all('tr', class_='info'):
+        return [td.get_text() for td in tr.find_all('td')]
+    else:
+        return None
+
+    return None
 
 def consult(request):
     import urllib, urllib2, cookielib
@@ -34,8 +42,9 @@ def consult(request):
     req = urllib2.Request(url_2, data)
     rsp = urllib2.urlopen(req)
     content = rsp.read()
+    print parse_deudor(content)
     print content
-           
+
 def get_user(email, username):
     mail = User.objects.filter(email=email.lower())
     nick = User.objects.filter(username = username.lower())

@@ -13,6 +13,29 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadReque
 
 # Create your views here.
 
+
+
+def consult(request):
+    import urllib, urllib2, cookielib
+
+    cookie_jar = cookielib.CookieJar()
+    opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie_jar))
+    urllib2.install_opener(opener)
+
+    # acquire cookie
+    url_1 = 'http://www.machala.gob.ec/ConsultaDeuda/'
+    req = urllib2.Request(url_1)
+    rsp = urllib2.urlopen(req)
+
+    # do POST
+    url_2 = 'http://www.machala.gob.ec/ConsultaDeuda/Clases/consulta.php'
+    values = dict(txtcadena='0702373119', tipo='1')
+    data = urllib.urlencode(values)
+    req = urllib2.Request(url_2, data)
+    rsp = urllib2.urlopen(req)
+    content = rsp.read()
+    print content
+           
 def get_user(email, username):
     mail = User.objects.filter(email=email.lower())
     nick = User.objects.filter(username = username.lower())

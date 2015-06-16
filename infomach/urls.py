@@ -29,6 +29,7 @@ router.register(r'Contribution', ContributionViewSet)
 urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^', include(admin.site.urls)),
+    url(r'^consult/', 'web.views.consult'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
 ]

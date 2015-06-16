@@ -103,4 +103,13 @@ def login(request):
         return HttpResponseBadRequest('Usuario o clave incorrecto')
 
 
+def content(request):
+    if request.method == 'GET': 
+        content = Content.objects.filter(active = True)
+        template = 'web/content.html'
+        return render_to_response(template,{'content':content}, context_instance= RequestContext(request))
+
+
+
+
 
